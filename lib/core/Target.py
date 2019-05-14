@@ -13,6 +13,7 @@ class Target:
 
     def __init__(self, ip, port, url=None, ssl=False):
         self.ssl = ssl
+        self.url = url
         if url:
             self.__init_with_url(url)
         else:

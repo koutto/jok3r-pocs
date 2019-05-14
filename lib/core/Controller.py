@@ -42,12 +42,12 @@ class Controller:
                 sys.exit(1)
 
             if exploit.check_success():
-                logger.success('{name}: Target is EXPLOITABLE !'.format(
-                    name=exploit.name))
+                logger.success('{description}: Target is EXPLOITABLE !'.format(
+                    description=exploit.description))
                 logger.info('Exploit code available in: {directory}'.format(
                     directory=exploit.directory))
 
             else:
-                logger.error('{name}: Target seems NOT exploitable'.format(
-                    name=exploit.name))
+                logger.error('{description}: Target seems NOT exploitable'.format(
+                    description=exploit.description))
 

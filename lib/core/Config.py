@@ -23,7 +23,7 @@ SUPPORTED_TYPES = ('rce-blind', 'rce-standard')
 CMD = {
 	'rce-blind': {
 		'linux': '/bin/ping -c 4 [LOCALIP]',
-		'windows': 'ping [LOCALIP]',
+		'windows': 'ping /n 4 [LOCALIP]',
 	},
 	'rce-standard': {
 		'linux': 'echo "Command run from Exploit"',

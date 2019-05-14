@@ -28,11 +28,11 @@ class Command:
 
         # Replace tag [PORT]
         pattern = re.compile('\[PORT\]', re.IGNORECASE)
-        cmdline = pattern.sub(target.port, cmdline)
+        cmdline = pattern.sub(str(target.port), cmdline)
 
         # Replace tag [URL]
         pattern = re.compile('\[URL\]', re.IGNORECASE)
-        cmdline = pattern.sub(target.url, cmdline)
+        cmdline = pattern.sub(str(target.url), cmdline)
 
         # Replace tag [URIPATH]
         pattern = re.compile('\[URIPATH\]', re.IGNORECASE)
@@ -53,7 +53,7 @@ class Command:
             cmdline = pattern.sub(m.group('option'), cmdline)
         else:
             cmdline = pattern.sub('', cmdline)
-
+        
         # Replace tag [CMD]
         if '[cmd]' in cmdline.lower():
             try:
