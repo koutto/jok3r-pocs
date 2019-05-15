@@ -25,7 +25,6 @@ print_info "Running tcpdump in background to try to capture ICMP requests if ser
 sudo sh -c "tcpdump -U -i any -w /tmp/dump.pcap icmp &"
 sleep 3
 
-print_info "Running command: {command}"
 {command}
 
 print_info "Wait a little bit..."
