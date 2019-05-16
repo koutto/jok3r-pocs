@@ -17,7 +17,7 @@ Exploits Runner for Jok3r
 """, colored.fg('light_green') + colored.attr('bold'))
 
 EXPLOITS_CONF = 'exploits.conf'
-SUPPORTED_TYPES = ('rce-blind', 'rce-standard')
+SUPPORTED_TYPES = ('rce-blind', 'rce-standard', 'sqli')
 
 # Command to execute on remote system depending on exploit type and remote OS
 CMD = {

@@ -34,6 +34,11 @@ class Command:
         pattern = re.compile('\[URL\]', re.IGNORECASE)
         cmdline = pattern.sub(str(target.url), cmdline)
 
+        # Replace tag [BASEURL]
+        pattern = re.compile('\[BASEURL\]', re.IGNORECASE)
+        baseurl = target.url.split('//')[0]+'//'+target.url.split('//')[1].split('/')[0]
+        cmdline = pattern.sub(str(baseurl), cmdline)       
+
         # Replace tag [URIPATH]
         pattern = re.compile('\[URIPATH\]', re.IGNORECASE)
         try:
