@@ -54,10 +54,11 @@ class Command:
             re.IGNORECASE)
 
         m = pattern.search(cmdline)
-        if target.ssl == True:
-            cmdline = pattern.sub(m.group('option'), cmdline)
-        else:
-            cmdline = pattern.sub('', cmdline)
+        if m:
+            if target.ssl == True:
+                cmdline = pattern.sub(m.group('option'), cmdline)
+            else:
+                cmdline = pattern.sub('', cmdline)
         
         # Replace tag [CMD]
         if '[cmd]' in cmdline.lower():
