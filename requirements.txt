@@ -3,3 +3,4 @@ colored
 colorlog
 prettytable
 regex
+requests
