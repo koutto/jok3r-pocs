@@ -3,7 +3,6 @@ colored
 coloredlogs
 colorlog
 configparser
-hashlib
 ipaddress
 prettytable
 regex
