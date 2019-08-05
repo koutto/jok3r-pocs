@@ -8,6 +8,5 @@ prettytable
 regex
 requests
 six
-urllib2
 urllib3
 uuid
