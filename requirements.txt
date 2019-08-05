@@ -1,6 +1,14 @@
 argparse
 colored
+coloredlogs
 colorlog
+configparser
+hashlib
+ipaddress
 prettytable
 regex
 requests
+six
+urllib2
+urllib3
+uuid
