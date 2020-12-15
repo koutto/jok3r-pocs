@@ -2,4 +2,5 @@
 
 sudo apt-get update
 sudo apt-get install -y tcpdump
-pip3 install -r requirements-py3.txt
+python3 -m pip install -r requirements-py3.txt
+python2 -m pip install -r requirements-py2.txt
