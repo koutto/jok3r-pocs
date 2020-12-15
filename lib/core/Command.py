@@ -64,10 +64,13 @@ class Command:
         if '[cmd]' in cmdline.lower():
             try:
                 pattern = re.compile('\[CMD\]', re.IGNORECASE)
-                if CMD[self.type]['linux'] != CMD[self.type]['windows']:
+                #if CMD[self.type]['linux'] != CMD[self.type]['windows']:
+                if self.type == 'rce-blind':
                     cmdline_lin = pattern.sub(CMD[self.type]['linux'], cmdline)
+                    cmdline_lin2 = pattern.sub(CMD[self.type]['linux2'], cmdline)
+                    cmdline_lin3 = pattern.sub(CMD[self.type]['linux3'], cmdline)
                     cmdline_win = pattern.sub(CMD[self.type]['windows'], cmdline)
-                    cmdline = '{0}; {1}'.format(cmdline_lin, cmdline_win)
+                    cmdline = '{0}; {1}; {2}; {3}'.format(cmdline_lin, cmdline_lin2, cmdline_lin3, cmdline_win)
                 else:
                     cmdline = pattern.sub(CMD[self.type]['linux'], cmdline)
 
