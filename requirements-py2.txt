@@ -1,0 +1,12 @@
+argparse
+colored
+coloredlogs
+colorlog
+configparser
+ipaddress
+prettytable
+regex
+requests
+six
+urllib3
+uuid
