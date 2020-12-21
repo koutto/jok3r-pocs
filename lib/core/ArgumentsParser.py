@@ -22,7 +22,7 @@ class ArgumentsParser:
             formatter_class=ArgumentsParser.formatter_class)
         self.parser.add_argument('-t', '--target', type=self.check_arg_target, 
             dest='target', help='Target IP:PORT or URL')
-        self.parser.add_argument('-s', '--ssl', dest='ssl', default=False,
+        self.parser.add_argument('-s', '--ssl', dest='ssl', action='store_true', default=False,
             help='Enable SSL/TLS')
         self.parser.add_argument('-e', '--exploit', type=self.check_arg_exploit,
             dest='exploit', help='Exploit to use')
