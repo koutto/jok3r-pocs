@@ -78,7 +78,10 @@ class Command:
                 raise CommandException(e)
         elif '[cmdlinux]' in cmdline.lower() or '[cmdwindows]' in cmdline.lower():
             pattern = re.compile('\[CMDLINUX\]', re.IGNORECASE)
-            cmdline = pattern.sub(CMD[self.type]['linux'], cmdline)
+            cmdline_lin = pattern.sub(CMD[self.type]['linux'], cmdline)
+            cmdline_lin2 = pattern.sub(CMD[self.type]['linux2'], cmdline)
+            cmdline_lin3 = pattern.sub(CMD[self.type]['linux3'], cmdline)
+            cmdline = '{0}; {1}; {2}'.format(cmdline_lin, cmdline_lin2, cmdline_lin3)
 
             pattern = re.compile('\[CMDWINDOWS\]', re.IGNORECASE)
             cmdline = pattern.sub(CMD[self.type]['windows'], cmdline)
