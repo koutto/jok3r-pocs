@@ -30,7 +30,7 @@ print_info "Running tcpdump in background to try to capture ICMP requests if ser
 sudo sh -c "tcpdump -U -i any -w /tmp/dump.pcap icmp &"
 sleep 2
 print_info "Alternatively, running HTTP server (port 8888/tcp) in background to try to capture HTTP requests if service is vuln..."
-python3 -m http.server 8888 &> /tmp/httptraffic.log &
+python3 -m http.server 8888 > /tmp/httptraffic.log 2>&1 &
 sleep 2
 
 {command}
