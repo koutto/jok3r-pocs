@@ -17,7 +17,13 @@ Exploits Runner for Jok3r
 """, colored.fg('light_green') + colored.attr('bold'))
 
 EXPLOITS_CONF = 'exploits.conf'
-SUPPORTED_TYPES = ('rce-blind', 'rce-standard', 'sqli')
+
+# Supported vulnerability types
+SUPPORTED_TYPES = (
+    'rce', 
+    'sqli',
+    'path-trav',
+)
 
 # Command to execute on remote system depending on exploit type and remote OS
 CMD = {
@@ -34,6 +40,6 @@ CMD = {
 }
 
 
-# Matching pattern for successful exploits
+# Matching pattern for successful RCE exploit without command output in automatic mode
 MATCHING_PATTERN_RCE_BLIND_ICMP = 'Captured ICMP traffic:[\s\S]*?ICMP echo request.*\n.*ICMP echo reply'
 MATCHING_PATTERN_RCE_BLIND_HTTP = 'Captured HTTP traffic:[\s\S]*?GET /testexploit1337'

@@ -23,9 +23,9 @@ LOG_COLORS = {
 SECONDARY_LOG_COLORS = {
         'message': {
             DEBUG    : 'white',
-            SUCCESS  : 'green',
-            WARNING  : 'yellow',
-            ERROR    : 'red',
+            SUCCESS  : 'bold,green',
+            WARNING  : 'bold,yellow',
+            ERROR    : 'bold,red',
         }
 }
 

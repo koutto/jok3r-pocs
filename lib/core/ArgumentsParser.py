@@ -24,8 +24,13 @@ class ArgumentsParser:
             dest='target', help='Target IP:PORT or URL')
         self.parser.add_argument('-s', '--ssl', dest='ssl', action='store_true', default=False,
             help='Enable SSL/TLS')
-        self.parser.add_argument('-e', '--exploit', type=self.check_arg_exploit,
-            dest='exploit', help='Exploit to use')
+        self.parser.add_argument('--vuln', '--vuln', type=self.check_arg_exploit,
+            dest='vuln', help='Vulnerability to exploit/detect (e.g. --vuln weblogic-cve-2019-2725)')
+        self.parser.add_argument('-m', '--mode', type=self.check_arg_mode,
+            dest='mode', help='Mode: "detect" or "exploit". For RCE vuln, you can specifify --cmd when using "exploit", '
+            'otherwise an automatic exploit running pre-definied commands will be attempted')
+        self.parser.add_argument('--cmd', '--cmd', type=str, dest='cmd', default='', 
+            help='Command to execute when exploiting RCE vulnerability (require use of --mode exploit)')
         self.parser.add_argument('-l', '--list', dest='list', action='store_true', default=False,
             help='Display list of exploits')
 
@@ -85,10 +90,15 @@ class ArgumentsParser:
             raise argparse.ArgumentTypeError('Unsupported exploit. Check --list')
         return exploit
 
+    def check_arg_mode(self, mode):
+        if mode.lower() not in ['detect', 'exploit']:
+            raise argparse.ArgumentTypeError('Unsupported mode. Valid modes are: "detect" or "exploit".')
+        return mode.lower()
+
     def check_args(self):
         if self.args.list is False:
             if self.args.target is None:
                 self.parser.error('Target is required (--target)')
-            elif self.args.exploit is None:
-                self.parser.error('Exploit name is required (--exploit)')
+            elif self.args.vuln is None:
+                self.parser.error('Vulnerability name is required (--vuln)')
         return

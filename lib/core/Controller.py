@@ -19,6 +19,7 @@ class Controller:
             self.settings.show_list_exploits()
 
         else:
+            # Instantiate Target using URL or IP:PORT
             if self.args.target.lower().startswith('http'):
                 target = Target(
                     ip=None, 
@@ -32,22 +33,42 @@ class Controller:
                     url=None,
                     ssl=self.args.ssl)
 
-            exploit = self.settings.get_exploit(self.args.exploit)
+            # Get Exploit (or detection script) for selected vulnerability
+            exploit = self.settings.get_exploit(self.args.vuln)
 
-            OutputUtils.title('Exploitation Attempt: {description}'.format(
-                description=exploit.description))
-            out = exploit.run(target)
+            # Check if specified mode is available for specified vuln
+            if not exploit.is_mode_supported(self.args.mode):
+                logger.error('Supplied mode ({mode}) is not supported for vulnerability {vuln}'.format(
+                    mode=self.args.mode,
+                    vuln=self.args.vuln))
+                sys.exit(1)
+
+            # Print title and main information
+            OutputUtils.title('Vulnerability: {description}'.format(description=exploit.description))
+            logger.info('Target product: {product}'.format(product=exploit.product))
+            logger.info('Vulnerability type: {vuln}'.format(vuln=exploit.type))
+            logger.info('Selected mode: {mode}'.format(mode=self.args.mode))
+            if self.args.mode == 'exploit' and exploit.type == 'rce':
+                logger.info('RCE output available: {rceoutput}'.format(
+                    rceoutput='Y' if exploit.exploit_rce_output else 'N'))
+
+            # Run exploit/detection script
+            out = exploit.run(target, self.args.mode, self.args.cmd)
 
             if out is None:
                 sys.exit(1)
 
-            if exploit.check_success():
-                logger.success('{description}: Target is EXPLOITABLE !'.format(
-                    description=exploit.description))
-                logger.info('Exploit code available in: {directory}'.format(
-                    directory=exploit.directory))
-
-            else:
-                logger.error('{description}: Target seems NOT exploitable'.format(
-                    description=exploit.description))
+            # Automatically check success when:
+            # - Run in detection mode
+            # - Run in exploit mode without --cmd provided (automatic exploit test)
+            if self.args.mode == 'detect' or \
+               (self.args.mode == 'exploit' and (not self.args.cmd or len(self.args.cmd) == 0)):
+                if exploit.check_success(self.args.mode):
+                    logger.success('{description}: Target is EXPLOITABLE !'.format(
+                        description=exploit.description))
+                    logger.info('Code available in: {directory}'.format(
+                        directory=exploit.directory))
+                else:
+                    logger.error('{description}: Target seems NOT exploitable'.format(
+                        description=exploit.description))
 

